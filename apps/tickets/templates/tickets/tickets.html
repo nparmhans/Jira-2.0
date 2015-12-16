@@ -1,0 +1,42 @@
+{% extends 'jira/base.html' %}
+{% block content %}
+    {% include 'jira/index.html' %}
+
+    <div class="container">
+
+        <!-- Example row of columns -->
+        <h2 class="sub-header">Tickets</h2>
+        <form action="{% url 'home' %}">
+            <button class="btn btn-primary">Back</button>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tickets in ticket %}
+                    <tr>
+                        <td {% if tickets.priority_level == '1' %}
+                            class="alert alert-danger" {% elif tickets.priority_level == '3' %}
+                            class="alert alert-success" {% else %}
+                            class="alert alert-warning" {% endif %}>{{ tickets.priority_level.0 }}</td>
+                        <td>{{ tickets.created_at }}</td>
+                        <td>{{ tickets.title }}</td>
+                        <td>{{ tickets.description }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    {% include 'jira/footer.html' %}
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'jira/head.html' %}
+<body>
+{% block content %}
+
+{% endblock %}
+<p id="data"></p>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        var $error = $("#error");
+        var $success = $("#success");
+        var $successText = $("#success-text");
+        var $errorText = $("#error-text");
+        $('#ticket_form').submit(function (event) {
+            $form = $(this);
+            event.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: $form.attr("action"),
+                data: $form.serialize()
+            }).success(function (data) {
+                $success.slideDown(1000).slideUp(3500);
+                $form[0].reset();
+
+            }).fail(function (msg) {
+                $error.slideDown(1000).slideUp(1500);
+
+            })
+        });
+        return false;
+
+    });
+</script>
+</html>

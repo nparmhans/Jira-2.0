@@ -1,0 +1,18 @@
+{% extends 'jira/base.html' %}
+
+{% block content %}
+    {% include 'jira/index.html' %}
+    {% include 'tickets/ticket_form.html' %}
+
+
+    <div class="container">
+        <div>
+            <form action="{% url 'show' %}">
+                <button type="submit" class="btn btn-primary btn-lg">View Tickets &raquo</button>
+
+            </form>
+        </div>
+
+    </div>
+    {% include 'jira/footer.html' %}
+{% endblock %}
